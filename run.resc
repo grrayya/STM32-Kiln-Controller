@@ -1,0 +1,14 @@
+mach create "STM32F4"
+machine LoadPlatformDescription @platforms/boards/stm32f4_discovery-kit.repl
+
+showAnalyzer sysbus.usart2
+
+$bin?=@build/kiln_ctrl.elf
+
+macro reset
+"""
+    sysbus LoadELF $bin
+"""
+
+machine StartGdbServer 3333
+runMacro $reset
